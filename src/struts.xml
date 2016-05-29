@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+
+    <package name="users" namespace="/" extends="struts-default">
+        <action name="login_user" class="main.action.LoginUser">
+            <result name="success">/user_profile.jsp</result>
+            <result name="error">/signin.jsp</result>
+        </action>
+    </package>
+
+    <package name="seances" namespace="/" extends="struts-default">
+        <action name="get_today_seances" class="main.action.seance.GetTodaySeances">
+            <result name="success">/seances.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+    </package>
+
+    <package name="films" namespace="/" extends="struts-default">
+        <action name="get_films_collection" class="main.action.film.GetFilmsCollection">
+            <result name="success">/films.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="add_new_film" class="main.action.film.AddNewFilm">
+            <result name="success">/add_new_film.jsp</result>
+            <result name="error">/add_new_film.jsp</result>
+        </action>
+    </package>
+
+
+</struts>
