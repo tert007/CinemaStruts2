@@ -18,18 +18,16 @@
                 <c:when test="${sessionScope.user.getUserType() eq 'ADMIN'}">
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation"><a href="index.jsp">Главная</a></li>
-                        <li role="presentation"><a href="Controller?command=get_today_seances">Сеансы</a></li>
-                        <li role="presentation" class="active"><a
-                                href="Controller?command=get_films_collection">Фильмы</a></li>
-                        <li role="presentation"><a href="Controller?command=get_users_collection">Пользователи</a></li>
+                        <li role="presentation"><a href="get_today_seances.action">Сеансы</a></li>
+                        <li role="presentation" class="active"><a href="get_films_collection.action">Фильмы</a></li>
+                        <li role="presentation"><a href="get_users_collection.action">Пользователи</a></li>
                     </ul>
                 </c:when>
                 <c:otherwise>
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation"><a href="index.jsp">Главная</a></li>
-                        <li role="presentation"><a href="Controller?command=get_today_seances">Сеансы</a></li>
-                        <li role="presentation" class="active"><a
-                                href="Controller?command=get_films_collection">Фильмы</a></li>
+                        <li role="presentation"><a href="get_today_seances.action">Сеансы</a></li>
+                        <li role="presentation" class="active"><a href="get_films_collection.action">Фильмы</a></li>
                     </ul>
                 </c:otherwise>
             </c:choose>
@@ -58,15 +56,16 @@
                     <td>${film.getAgeLimitation()}</td>
                     <td>
                         <a class="btn-primary btn-sm"
-                           href="Controller?command=find_seances_by_film&film_id=${film.getId()}">Сеансы</a>
+                           href="find_seances_by_film.action?film_id=${film.getId()}">Сеансы</a>
                         <c:choose>
                             <c:when test="${sessionScope.user.getUserType() eq 'ADMIN'}">
                                 <div class="tools">
-                                    <a href="Controller?command=find_film_by_id&film_id=${film.getId()}"><span
+                                    <a href="find_film_by_id.action?film_id=${film.getId()}"><span
                                             class="glyphicon glyphicon-edit"></span></a>
 
-                                    <a href="javascript: confirmMessage('Controller?command=remove_film&film_id=${film.getId()}')"><span
+                                    <a href="javascript: confirmMessage('remove_film.action?film_id=${film.getId()}')"><span
                                             class="glyphicon glyphicon-remove"></span></a>
+
                                 </div>
                             </c:when>
                         </c:choose>

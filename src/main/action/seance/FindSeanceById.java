@@ -1,41 +1,73 @@
 package main.action.seance;
 
-import main.controller.Command;
-import main.controller.CommandException;
-import main.controller.PageHelper;
-import main.controller.PageName;
+import com.opensymphony.xwork2.ActionSupport;
 import main.dao.DaoException;
 import main.dao.DaoFactory;
 import main.entity.film.Film;
 import main.entity.hall.Hall;
 import main.entity.seance.Seance;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
  * Created by Vadim on 07.05.2016.
  */
-public class FindSeanceById implements Command {
+public class FindSeanceById extends ActionSupport {
+
+    private String seance_id;
+
+    private Seance seance;
+    private List<Hall> halls;
+    private List<Film> films;
+
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public String execute() throws Exception {
         DaoFactory daoFactory = DaoFactory.getDaoFactory();
         try{
 
-            int seanceId = Integer.parseInt(request.getParameter("seance_id"));
-            Seance seance = daoFactory.getSeanceDao().findSeanceById(seanceId);
+            int seanceId = Integer.parseInt(seance_id);
 
-            List<Hall> halls = daoFactory.getHallDao().getHallsCollection();
-            List<Film> films = daoFactory.getFilmDao().getFilmsCollection();
+            seance = daoFactory.getSeanceDao().findSeanceById(seanceId);
+            halls = daoFactory.getHallDao().getHallsCollection();
+            films = daoFactory.getFilmDao().getFilmsCollection();
 
-            request.setAttribute("seance",seance);
-            request.setAttribute("halls", halls);
-            request.setAttribute("films", films);
-
-            return PageHelper.getPage(PageName.FIND_SEANCE_BY_ID);
+            return SUCCESS;
         }
-        catch (DaoException ex){
-            throw new CommandException(ex);
+        catch (DaoException e){
+            return ERROR;
         }
+    }
+
+
+    public String getSeance_id() {
+        return seance_id;
+    }
+
+    public void setSeance_id(String seance_id) {
+        this.seance_id = seance_id;
+    }
+
+    public Seance getSeance() {
+        return seance;
+    }
+
+    public void setSeance(Seance seance) {
+        this.seance = seance;
+    }
+
+    public List<Hall> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
+    }
+
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
     }
 }

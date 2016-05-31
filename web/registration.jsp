@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
@@ -15,16 +16,15 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation"><a href="index.jsp">Главная</a></li>
-                <li role="presentation"><a href="Controller?command=get_today_seances">Сеансы</a></li>
-                <li role="presentation"><a href="Controller?command=get_films_collection">Фильмы</a></li>
+                <li role="presentation"><a href="get_today_seances.action">Сеансы</a></li>
+                <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
             </ul>
         </nav>
         <h3 class="text-muted">Cinemator</h3>
     </div>
 
     <div class="jumbotron">
-        <form action="Controller" method="post">
-            <input type="hidden" name="command" value="registration_user"/>
+        <form action="registration.action" method="post">
             <table>
                 <tr>
                     <td> Введите логин:</td>
@@ -39,9 +39,9 @@
                     <td><input type="email" required name="email"></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" name="button" value="Зарегестрироваться"/></td>
+                    <td><input type="submit" value="Зарегестрироваться"/></td>
                 </tr>
-                <c:out value="${errorMessage}"/>
+                <s:actionerror/>
             </table>
         </form>
     </div>

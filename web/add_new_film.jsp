@@ -39,6 +39,7 @@
     </div>
 
     <div class="jumbotron">
+        <s:actionerror/>
         <form action="add_new_film.action" method="post" class="form-horizontal" role="form">
             <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">Название</label>
@@ -53,7 +54,7 @@
                            class="form-control"></td>
                 </div>
             </div>
-            ///
+
             <div class="form-group">
                 <label for="genre" class="col-sm-2 control-label">Жанр</label>
                 <div class="col-sm-10">
@@ -124,7 +125,7 @@
                 </div>
             </div>
 
-            <input type="submit" name="button" value="Добвить"/>
+            <input type="submit" value="Добавить"/>
         </form>
     </div>
 

@@ -1,20 +1,14 @@
 package main.action.film;
 
 import com.opensymphony.xwork2.ActionSupport;
-import main.controller.CommandException;
-import main.controller.PageHelper;
-import main.controller.PageName;
 import main.dao.DaoException;
 import main.dao.DaoFactory;
 import main.entity.film.AgeLimitation;
 import main.entity.film.Film;
 import main.entity.film.FilmGenre;
-import org.apache.struts2.ServletActionContext;
-
-import javax.servlet.http.HttpServletRequest;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Alexander on 27.04.2016.
@@ -28,15 +22,11 @@ public class AddNewFilm extends ActionSupport {
     private String age_limitation;
     private String genre;
 
-
-
     private Film film;
 
     @Override
     public String execute() throws Exception {
         DaoFactory daoFactory = DaoFactory.getDaoFactory();
-        //HttpServletRequest request = ServletActionContext.getRequest();
-//
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -45,7 +35,7 @@ public class AddNewFilm extends ActionSupport {
             AgeLimitation ageLimitation = AgeLimitation.valueOf(age_limitation);
             FilmGenre filmGenre = FilmGenre.valueOf(genre);
 
-            Film film = new Film();
+            film = new Film();
 
             film.setTitle(title);
             film.setDescription(description);
@@ -55,15 +45,14 @@ public class AddNewFilm extends ActionSupport {
             film.setAgeLimitation(ageLimitation);
 
             daoFactory.getFilmDao().addNewFilm(film);
-            setFilm(film);
-
+            addActionMessage("Фильм добавлен!");
             return SUCCESS;
         } catch (IllegalArgumentException  e) {
             addActionError("Ошибка в типах-перечислителях");
-            return ERROR;
+            return SUCCESS;
         } catch (ParseException  e){
             addActionError("Ошибка в дате");
-            return ERROR;
+            return SUCCESS;
         } catch (DaoException e){
             return ERROR;
         }

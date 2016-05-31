@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
@@ -15,16 +16,18 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation"><a href="index.jsp">Главная</a></li>
-                <li role="presentation"><a href="Controller?command=get_today_seances">Сеансы</a></li>
-                <li role="presentation" class="active"><a href="Controller?command=get_films_collection">Фильмы</a></li>
+                <li role="presentation" class="active"><a href="get_today_seances.action">Сеансы</a></li>
+                <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
+                <li role="presentation"><a href="get_users_collection.action">Пользователи</a></li>
             </ul>
         </nav>
         <jsp:include page="included_user_profile.jsp"/>
     </div>
 
     <div class="jumbotron">
-
-        <form action="Controller" method="get" class="form-horizontal" role="form">
+        <s:actionerror/>
+        <s:actionmessage/>
+        <form action="update_ticket.action" method="post" class="form-horizontal" role="form">
 
             <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">Название фильма</label>
@@ -52,9 +55,8 @@
                 </div>
             </div>
 
-            <input type="hidden" name="command" value="update_ticket"/>
             <input type="hidden" name="ticket_id" value="${ticket.getId()}">
-            <input type="submit" name="button" value="Изменить билет"/>
+            <input type="submit" value="Изменить билет"/>
 
         </form>
     </div>

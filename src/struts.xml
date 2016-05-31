@@ -8,9 +8,44 @@
     <constant name="struts.devMode" value="true"/>
 
     <package name="users" namespace="/" extends="struts-default">
-        <action name="login_user" class="main.action.LoginUser">
-            <result name="success">/user_profile.jsp</result>
+
+        <action name="login_user" class="main.action.user.LoginUser">
+            <result name="success">/index.jsp</result>
             <result name="error">/signin.jsp</result>
+        </action>
+
+        <action name="logout_user" class="main.action.user.LogoutUser">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="registration" class="main.action.user.RegistrationUser">
+            <result name="success">/user_profile.jsp</result>
+            <result name="error">/registration.jsp</result>
+        </action>
+
+        <action name="find_user_by_id" class="main.action.user.FindUserById">
+            <result name="success">/user_profile.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="remove_user" class="main.action.user.RemoveUser">
+            <result name="success">/users.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="get_users_collection" class="main.action.user.GetUsersCollection">
+            <result name="success">/users.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="add_new_user" class="main.action.user.AddNewUser">
+            <result name="success">/user_profile.jsp</result>
+            <result name="error">/add_new_user.jsp</result>
+        </action>
+
+        <action name="update_user" class="main.action.user.UpdateUser">
+            <result name="success">/user_profile.jsp</result>
+            <result name="error">/error.jsp</result>
         </action>
     </package>
 
@@ -19,6 +54,40 @@
             <result name="success">/seances.jsp</result>
             <result name="error">/error.jsp</result>
         </action>
+
+        <action name="get_seances_by_date" class="main.action.seance.GetSeancesByDate">
+            <result name="success">/seances.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="add_new_seance" class="main.action.seance.AddNewSeance">
+            <result name="success">/find_seance_by_id.jsp</result>
+            <result name="error">/add_new_seance.jsp</result>
+        </action>
+
+        <action name="show_add_new_seance" class="main.action.seance.ShowAddNewSeance">
+            <result name="success">/add_new_seance.jsp</result>
+        </action>
+
+        <action name="find_seance_by_id" class="main.action.seance.FindSeanceById">
+            <result name="success">/find_seance_by_id.jsp</result>
+        </action>
+
+        <action name="remove_seance" class="main.action.seance.RemoveSeance">
+            <result name="success">/seances.jsp</result>
+        </action>
+
+        <action name="find_seances_by_film" class="main.action.seance.FindSeancesByFilm">
+            <result name="success">/seances.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="update_seance" class="main.action.seance.UpdateSeance">
+            <result name="success">/find_seance_by_id.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+
     </package>
 
     <package name="films" namespace="/" extends="struts-default">
@@ -28,10 +97,52 @@
         </action>
 
         <action name="add_new_film" class="main.action.film.AddNewFilm">
-            <result name="success">/add_new_film.jsp</result>
+            <result name="success">/find_film_by_id.jsp</result>
             <result name="error">/add_new_film.jsp</result>
+        </action>
+
+        <action name="find_film_by_id" class="main.action.film.FindFilmById">
+            <result name="success">/find_film_by_id.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="update_film" class="main.action.film.UpdateFilm">
+            <result name="success">/find_film_by_id.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="remove_film" class="main.action.film.RemoveFilm">
+            <result name="success">/films.jsp</result>
+            <result name="error">/error.jsp</result>
         </action>
     </package>
 
+    <package name="tickets" namespace="/" extends="struts-default">
+
+        <action name="remove_ticket" class="main.action.ticket.RemoveTicket">
+            <result name="success">/user_profile.jsp</result>
+            <result name="error">/add_new_user.jsp</result>
+        </action>
+
+        <action name="update_ticket" class="main.action.ticket.UpdateTicket">
+            <result name="success">/find_ticket_by_id.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="buy_ticket" class="main.action.ticket.BuyTicket">
+            <result name="success">/show_seance_sits.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="show_seance_sits" class="main.action.ticket.ShowSeanceSits">
+            <result name="success">/show_seance_sits.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="find_ticket_by_id" class="main.action.ticket.FindTicketById">
+            <result name="success">/find_ticket_by_id.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+    </package>
 
 </struts>

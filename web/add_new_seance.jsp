@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
@@ -17,18 +18,16 @@
                 <c:when test="${sessionScope.user.getUserType() eq 'ADMIN'}">
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation"><a href="index.jsp">Главная</a></li>
-                        <li role="presentation"><a href="Controller?command=get_today_seances">Сеансы</a></li>
-                        <li role="presentation" class="active"><a
-                                href="Controller?command=get_films_collection">Фильмы</a></li>
-                        <li role="presentation"><a href="Controller?command=get_users_collection">Пользователи</a></li>
+                        <li role="presentation" class="active"><a href="get_today_seances.action">Сеансы</a></li>
+                        <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
+                        <li role="presentation"><a href="get_users_collection.action">Пользователи</a></li>
                     </ul>
                 </c:when>
                 <c:otherwise>
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation"><a href="index.jsp">Главная</a></li>
-                        <li role="presentation"><a href="Controller?command=get_today_seances">Сеансы</a></li>
-                        <li role="presentation" class="active"><a
-                                href="Controller?command=get_films_collection">Фильмы</a></li>
+                        <li role="presentation" class="active"><a href="get_today_seances.action">Сеансы</a></li>
+                        <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
                     </ul>
                 </c:otherwise>
             </c:choose>
@@ -37,8 +36,8 @@
     </div>
 
     <div class="jumbotron">
-        <c:out value="${statusMessage}"/>
-        <form action="Controller" method="GET">
+        <s:actionerror/>
+        <form action="add_new_seance.action" method="post">
             <table>
                 <tr>
                     <td>Выберите фильм</td>
@@ -96,7 +95,6 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="hidden" name="command" value="add_new_seance">
                         <input type="submit" value="Добавить">
                     </td>
                 </tr>

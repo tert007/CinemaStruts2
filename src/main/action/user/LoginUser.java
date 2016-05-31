@@ -1,10 +1,6 @@
-package main.action;
+package main.action.user;
 
 import com.opensymphony.xwork2.ActionSupport;
-import main.controller.Command;
-import main.controller.CommandException;
-import main.controller.PageHelper;
-import main.controller.PageName;
 import main.dao.DaoException;
 import main.dao.DaoFactory;
 import main.entity.user.User;
@@ -16,14 +12,13 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by Alexander on 07.05.2016.
  */
-public class LoginUser  extends ActionSupport {
+public class LoginUser extends ActionSupport {
 
     private String login;
     private String password;
 
-
     @Override
-    public String execute() throws CommandException {
+    public String execute() throws Exception {
         DaoFactory daoFactory = DaoFactory.getDaoFactory();
         HttpServletRequest request = ServletActionContext.getRequest();
         try{
@@ -47,7 +42,7 @@ public class LoginUser  extends ActionSupport {
                 return ERROR;
             }
         } catch (DaoException ex){
-            throw new CommandException(ex);
+            return ERROR;
         }
     }
 

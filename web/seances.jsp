@@ -20,18 +20,16 @@
                 <c:when test="${sessionScope.user.getUserType() eq 'ADMIN'}">
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation"><a href="index.jsp">Главная</a></li>
-                        <li role="presentation" class="active"><a href="Controller?command=get_today_seances">Сеансы</a>
-                        </li>
-                        <li role="presentation"><a href="Controller?command=get_films_collection">Фильмы</a></li>
-                        <li role="presentation"><a href="Controller?command=get_users_collection">Пользователи</a></li>
+                        <li role="presentation" class="active"><a href="get_today_seances.action">Сеансы</a></li>
+                        <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
+                        <li role="presentation"><a href="get_users_collection.action">Пользователи</a></li>
                     </ul>
                 </c:when>
                 <c:otherwise>
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation"><a href="index.jsp">Главная</a></li>
-                        <li role="presentation" class="active"><a href="Controller?command=get_today_seances">Сеансы</a>
-                        </li>
-                        <li role="presentation"><a href="Controller?command=get_films_collection">Фильмы</a></li>
+                        <li role="presentation" class="active"><a href="get_today_seances.action">Сеансы</a></li>
+                        <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
                     </ul>
                 </c:otherwise>
             </c:choose>
@@ -41,21 +39,19 @@
 
 
     <div class="jumbotron">
-
-
         <table class="table">
 
-            <form name="find_seances" action="Controller" method="get">
+            <form action="get_seances_by_date.action" method="post">
 
                 <div class="container">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class='input-group date' id='datetimepicker1'>
-                                <input type='text' class="form-control" name="start_date"/>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar">
-                    </span>
-                </span>
+                                <input type='text' class="form-control" name="start_day"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -72,11 +68,11 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <div class='input-group date' id='datetimepicker2'>
-                                    <input type='text' class="form-control" name="finish_date"/>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar">
-                    </span>
-                </span>
+                                    <input type='text' class="form-control" name="finish_day"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +86,6 @@
                         </script>
                     </div>
                 </div>
-                <input type="hidden" name="command" value="get_seances_by_date"/>
                 <input type="submit" value="Найти"/>
             </form>
 
@@ -103,7 +98,6 @@
                 <td></td>
             </tr>
 
-
             <c:forEach var="seance" items="${seances}">
                 <tr>
                     <td>${seance.getFilm().getTitle()}</td>
@@ -112,32 +106,23 @@
                     <td>${seance.getPrice()}</td>
                     <td>
                         <a class="btn-primary btn-sm"
-                           href="Controller?command=show_seance_sits&seance_id=${seance.getId()}">Купить</a>
+                           href="show_seance_sits.action?seance_id=${seance.getId()}">Купить</a>
                     </td>
                     <td>
-                    <c:if test="${sessionScope.user.getUserType().toString() eq 'ADMIN'}">
-                            <a href="Controller?command=find_seance_by_id&seance_id=${seance.getId()}" ><span
+                        <c:if test="${sessionScope.user.getUserType().toString() eq 'ADMIN'}">
+                            <a href="find_seance_by_id.action?seance_id=${seance.getId()}" ><span
                                     class="glyphicon glyphicon-edit"></span></a>
 
-                        <script type="text/javascript">
-                            $(function () {
-                                $(function())
-                            });
-                        </script>
-
-                            <a href="Controller?command=remove_seance&seance_id=${seance.getId()}"><span
-                                        class="glyphicon glyphicon-remove"></span></a>
-
-                            <a href="Controller?command=find_seance_by_id&seance_id=${seance.getId()}"><span
-                                    class="glyphicon glyphicon-add"></span></a>
-                    </c:if>
+                            <a href="javascript: confirmMessage('remove_seance.action?seance_id=${seance.getId()}')"><span
+                                    class="glyphicon glyphicon-remove"></span></a>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
         </table>
 
         <c:if test="${sessionScope.user.getUserType() eq 'ADMIN'}">
-            <a href="Controller?command=show_add_new_seance">Добавить сеанс</a>
+            <a href="show_add_new_seance.action">Добавить сеанс</a>
         </c:if>
 
 

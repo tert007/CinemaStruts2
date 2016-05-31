@@ -1,67 +1,130 @@
 package main.action.seance;
 
-import main.controller.Command;
-import main.controller.CommandException;
-import main.controller.PageHelper;
-import main.controller.PageName;
+import com.opensymphony.xwork2.ActionSupport;
 import main.dao.DaoException;
 import main.dao.DaoFactory;
 import main.entity.film.Film;
 import main.entity.hall.Hall;
 import main.entity.seance.Seance;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Vadim on 07.05.2016.
  */
-public class AddNewSeance implements Command {
-    @Override
-    public String execute(HttpServletRequest request) throws CommandException {
-        DaoFactory daoFactory = DaoFactory.getDaoFactory();
-        String statusMessage;
-        try {
-            Film film = daoFactory.getFilmDao().findFilmById(Integer.parseInt(request.getParameter("film_id")));
-            Hall hall = daoFactory.getHallDao().findHallById(Integer.parseInt(request.getParameter("hall_id")));
+public class AddNewSeance extends ActionSupport {
 
-            int price = Integer.parseInt(request.getParameter("price"));
+    private String film_id;
+    private String hall_id;
+    private String price;
+    private String date;
+    private String time;
+
+    private Seance seance;
+    private List<Hall> halls;
+    private List<Film> films;
+
+    @Override
+    public String execute() throws Exception {
+        DaoFactory daoFactory = DaoFactory.getDaoFactory();
+        try {
+            int filmId = Integer.parseInt(film_id);
+            int hallId = Integer.parseInt(hall_id);
+
+            Film film = daoFactory.getFilmDao().findFilmById(filmId);
+            Hall hall = daoFactory.getHallDao().findHallById(hallId);
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:ss");
 
-            Date date = dateFormat.parse(request.getParameter("date"));
-            Date time = timeFormat.parse(request.getParameter("time"));
+            long unixDate = dateFormat.parse(date).getTime() + timeFormat.parse(time).getTime();
 
-            long unixTime = date.getTime()+ time.getTime();
-
-            Seance seance = new Seance();
+            seance = new Seance();
 
             seance.setHall(hall);
             seance.setFilm(film);
-            seance.setDate(unixTime);
-            seance.setPrice(price);
+            seance.setDate(unixDate);
+            seance.setPrice(Integer.parseInt(price));
 
             daoFactory.getSeanceDao().addNewSeance(seance);
 
-            List<Hall> halls = daoFactory.getHallDao().getHallsCollection();
-            List<Film> films = daoFactory.getFilmDao().getFilmsCollection();
+            halls = daoFactory.getHallDao().getHallsCollection();
+            films = daoFactory.getFilmDao().getFilmsCollection();
 
-            request.setAttribute("halls", halls);
-            request.setAttribute("films", films);
-            request.setAttribute("seance", seance);
-
-            statusMessage = "Данные успешно добавлены!";
-            request.setAttribute("statusMessage", statusMessage);
-            return PageHelper.getPage(PageName.FIND_SEANCE_BY_ID);
+            addActionMessage("Данные успешно добавлены!");
+            return SUCCESS;
         } catch (ParseException e){
-            statusMessage = "Ошибка в дате";
-            request.setAttribute("statusMessage", statusMessage);
-            return PageHelper.getPage(PageName.ADD_NEW_SEANCE);
+            addActionMessage("Ошибка!");
+            return ERROR;
         } catch (DaoException e) {
-            throw new CommandException(e);
+            return ERROR;
         }
+    }
+
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getFilm_id() {
+        return film_id;
+    }
+
+    public void setFilm_id(String film_id) {
+        this.film_id = film_id;
+    }
+
+    public String getHall_id() {
+        return hall_id;
+    }
+
+    public void setHall_id(String hall_id) {
+        this.hall_id = hall_id;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
+    }
+
+    public Seance getSeance() {
+        return seance;
+    }
+
+    public void setSeance(Seance seance) {
+        this.seance = seance;
+    }
+
+    public List<Hall> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
     }
 }

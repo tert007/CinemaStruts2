@@ -17,18 +17,16 @@
                 <c:when test="${sessionScope.user.getUserType() eq 'ADMIN'}">
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation"><a href="index.jsp">Главная</a></li>
-                        <li role="presentation" class="active"><a href="Controller?command=get_today_seances">Сеансы</a>
-                        </li>
-                        <li role="presentation"><a href="Controller?command=get_films_collection">Фильмы</a></li>
-                        <li role="presentation"><a href="Controller?command=get_users_collection">Пользователи</a></li>
+                        <li role="presentation" class="active"><a href="get_today_seances.action">Сеансы</a></li>
+                        <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
+                        <li role="presentation"><a href="get_users_collection.action">Пользователи</a></li>
                     </ul>
                 </c:when>
                 <c:otherwise>
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation"><a href="index.jsp">Главная</a></li>
-                        <li role="presentation" class="active"><a href="Controller?command=get_today_seances">Сеансы</a>
-                        </li>
-                        <li role="presentation"><a href="Controller?command=get_films_collection">Фильмы</a></li>
+                        <li role="presentation" class="active"><a href="get_today_seances.action">Сеансы</a></li>
+                        <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
                     </ul>
                 </c:otherwise>
             </c:choose>
@@ -48,7 +46,7 @@
                 </c:when>
                 <c:otherwise>
                     <td>
-                    <a href="Controller?command=buy_ticket&place=${j}&seance_id=${seance.getId()}">
+                    <a href="buy_ticket.action?place=${j}&seance_id=${seance.getId()}">
                         <button type="button" class=" btn-primary btn-xs">${j}</button>
                     </a>
                     </td>

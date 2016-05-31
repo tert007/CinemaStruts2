@@ -1,37 +1,36 @@
-package main.action.film;
+package main.action.user;
 
 import com.opensymphony.xwork2.ActionSupport;
 import main.dao.DaoException;
 import main.dao.DaoFactory;
-import main.entity.film.Film;
+import main.entity.user.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-/**
- * Created by Alexander on 02.04.2016.
- */
-public class GetFilmsCollection extends ActionSupport {
-    private List<Film> films;
+public class GetUsersCollection extends ActionSupport {
 
-    public List<Film> getFilms() {
-        return films;
-    }
-
-    public void setFilms(List<Film> films) {
-        this.films = films;
-    }
+    private List<User> users;
 
     @Override
     public String execute() throws Exception {
         DaoFactory daoFactory = DaoFactory.getDaoFactory();
         try {
 
-            setFilms(daoFactory.getFilmDao().getFilmsCollection());
+            users = daoFactory.getUserDao().getUsersCollection();
 
             return SUCCESS;
         } catch (DaoException e){
             return ERROR;
         }
     }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
 }

@@ -16,10 +16,9 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation"><a href="index.jsp">Главная</a></li>
-                <li role="presentation"><a href="Controller?command=get_today_seances">Сеансы</a></li>
-                <li role="presentation"><a href="Controller?command=get_films_collection">Фильмы</a></li>
-                <li role="presentation" class="active"><a
-                        href="Controller?command=get_users_collection">Пользователи</a></li>
+                <li role="presentation"><a href="get_today_seances.action">Сеансы</a></li>
+                <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
+                <li role="presentation" class="active"><a href="get_users_collection.action">Пользователи</a></li>
             </ul>
         </nav>
         <jsp:include page="included_user_profile.jsp"/>
@@ -45,9 +44,10 @@
                     <td>${user.getUserType()} </td>
                     <td>
                         <c:if test="${sessionScope.user.getUserType().toString() eq 'ADMIN'}">
-                            <a href="Controller?command=find_user_by_id&user_id=${user.getId()}" style="float: left"><span
+
+                            <a href="find_user_by_id.action?user_id=${user.getId()}" style="float: left"><span
                                     class="glyphicon glyphicon-edit"></span></a>
-                            <a href="javascript: confirmMessage('Controller?command=remove_user&user_id=${user.getId()}')" class="glyphicon glyphicon-remove remove_btn"></a>
+                            <a href="javascript: confirmMessage('remove_user.action?user_id=${user.getId()}')" class="glyphicon glyphicon-remove remove_btn"></a>
                         </c:if>
                     </td>
                 </tr>
@@ -55,7 +55,7 @@
 
         </table>
         <c:if test="${sessionScope.user.getUserType().toString() eq 'ADMIN'}">
-            <a href="add_user.jsp" class="btn btn-primary">Добавить пользователя</a>
+            <a href="add_new_user.jsp" class="btn btn-primary">Добавить пользователя</a>
         </c:if>
     </div>
 

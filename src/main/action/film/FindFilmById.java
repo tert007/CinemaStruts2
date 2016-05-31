@@ -1,37 +1,54 @@
 package main.action.film;
 
-import main.controller.Command;
-import main.controller.CommandException;
-import main.controller.PageHelper;
-import main.controller.PageName;
+import com.opensymphony.xwork2.ActionSupport;
+import com.sun.org.apache.bcel.internal.generic.RET;
+import com.sun.org.apache.regexp.internal.RE;
 import main.dao.DaoException;
 import main.dao.DaoFactory;
 import main.entity.film.Film;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * Created by Vadim on 04.04.2016.
  */
-public class FindFilmById implements Command {
-    @Override
-    public String execute(HttpServletRequest request) throws CommandException {
-        DaoFactory daoFactory = DaoFactory.getDaoFactory();
-        String statusMessage;
-        try {
-            int filmId = Integer.parseInt(request.getParameter("film_id"));
+public class FindFilmById extends ActionSupport {
 
-            Film film = daoFactory.getFilmDao().findFilmById(filmId);
-            if (film == null){
-                statusMessage = "Фильма с данным id нет";
-                request.setAttribute("statusMessage", statusMessage);
-                return PageHelper.getPage(PageName.FILM_BY_ID_PAGE);
+    private String film_id;
+
+    private Film film;
+
+    @Override
+    public String execute() throws Exception {
+        DaoFactory daoFactory = DaoFactory.getDaoFactory();
+
+        try {
+            int filmId = Integer.parseInt(film_id);
+
+            this.film = daoFactory.getFilmDao().findFilmById(filmId);
+            if (this.film == null){
+                addActionError("Фильма с данным id нет");
+                return SUCCESS;
             }
 
-            request.setAttribute("film", film);
-            return PageHelper.getPage(PageName.FILM_BY_ID_PAGE);
+            return SUCCESS;
         } catch (DaoException e){
-            throw new CommandException(e);
+            return ERROR;
         }
+    }
+
+
+    public String getFilm_id() {
+        return film_id;
+    }
+
+    public void setFilm_id(String film_id) {
+        this.film_id = film_id;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
     }
 }

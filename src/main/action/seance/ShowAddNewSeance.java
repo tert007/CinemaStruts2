@@ -1,9 +1,6 @@
 package main.action.seance;
 
-import main.controller.Command;
-import main.controller.CommandException;
-import main.controller.PageHelper;
-import main.controller.PageName;
+import com.opensymphony.xwork2.ActionSupport;
 import main.dao.DaoException;
 import main.dao.DaoFactory;
 import main.entity.film.Film;
@@ -15,21 +12,39 @@ import java.util.List;
 /**
  * Created by Alexander on 27.05.2016.
  */
-public class ShowAddNewSeance implements Command {
+public class ShowAddNewSeance extends ActionSupport {
+
+    private List<Hall> halls;
+    private List<Film> films;
+
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public String execute() throws Exception {
 
         DaoFactory daoFactory = DaoFactory.getDaoFactory();
         try {
-            List<Hall> halls = daoFactory.getHallDao().getHallsCollection();
-            List<Film> films = daoFactory.getFilmDao().getFilmsCollection();
+            halls = daoFactory.getHallDao().getHallsCollection();
+            films = daoFactory.getFilmDao().getFilmsCollection();
 
-            request.setAttribute("halls", halls);
-            request.setAttribute("films", films);
-
-            return PageHelper.getPage(PageName.ADD_NEW_SEANCE);
+            return SUCCESS;
         } catch (DaoException e) {
-            throw new CommandException(e);
+            return ERROR;
         }
     }
+
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
+    }
+
+    public List<Hall> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
+    }
+
 }

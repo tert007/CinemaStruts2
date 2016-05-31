@@ -19,7 +19,7 @@
                         <li role="presentation" class="active"><a href="index.jsp">Главная</a></li>
                         <li role="presentation"><a href="get_today_seances.action">Сеансы</a></li>
                         <li role="presentation"><a href="get_films_collection.action">Фильмы</a></li>
-                        <li role="presentation"><a href="Controller?command=get_users_collection">Пользователи</a></li>
+                        <li role="presentation"><a href="get_users_collection.action">Пользователи</a></li>
                     </ul>
                 </c:when>
                 <c:otherwise>
@@ -35,11 +35,11 @@
     </div>
 
     <div class="jumbotron">
-        <h1>Комфорт обеспечен</h1>
+        <h1>Качественный контент</h1>
         <p class="lead">Несколько залов, современное оборудование, отзывчивый и дружелюбный персонал. Все это и многое
             другое вы найдете в нашем кинотеатре. Не упустите возможность по максимому насладиться фильмом</p>
         <p>
-            <a class="btn btn-lg btn-success" href="Controller?command=get_today_seances" role="button">Приобрести
+            <a class="btn btn-lg btn-success" href="get_today_seances.action" role="button">Приобрести
                 билет</a>
         </p>
     </div>
