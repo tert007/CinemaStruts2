@@ -9,6 +9,7 @@
 <head>
     <title>Сеансы</title>
     <jsp:include page="included_head.jsp"/>
+    <script src="js/included_confirm_script.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -122,7 +123,7 @@
         </table>
 
         <c:if test="${sessionScope.user.getUserType() eq 'ADMIN'}">
-            <a href="show_add_new_seance.action">Добавить сеанс</a>
+            <a class="btn btn-primary" href="show_add_new_seance.action">Добавить сеанс</a>
         </c:if>
 
 

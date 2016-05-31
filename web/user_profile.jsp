@@ -83,6 +83,25 @@
         </c:choose>
         <p> Остаток на счету: ${user.getBonusCount()}</p>
 
+
+        <div class="save" style="margin-top: 50px">
+            <h2>Сохранить пользователя</h2>
+            <form action="user_generation.action" method="post" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="doc_type" class="col-sm-2 control-label">Выбирите формат сохранения</label>
+                    <div class="col-sm-10">
+                        <select name="doc_type" class="form-control" id="doc_type">
+                            <option name="PDF">PDF</option>
+                            <option name="EXCEL">EXCEL</option>
+                            <option name="CSV">CSV</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="hidden" name="user_id" value="${user.getId()}">
+                <input type="submit" value="Сохранить"/>
+            </form>
+        </div>
+
         <table class="table">
             <caption>Билеты</caption>
             <tr>
