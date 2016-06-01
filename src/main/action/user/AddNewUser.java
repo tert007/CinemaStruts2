@@ -3,11 +3,8 @@ package main.action.user;
 import com.opensymphony.xwork2.ActionSupport;
 import main.dao.DaoException;
 import main.dao.DaoFactory;
-import main.entity.ticket.Ticket;
 import main.entity.user.User;
 import main.entity.user.UserType;
-
-import java.util.List;
 
 /**
  * Created by Alexander on 22.05.2016.

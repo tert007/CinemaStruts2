@@ -15,8 +15,6 @@ public class User {
     private String email;
     private int bonusCount;
 
-    private List<Ticket> tickets;
-
     public UserType getUserType() {
         return userType;
     }
@@ -65,11 +63,4 @@ public class User {
         this.bonusCount = bonusCount;
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
 }

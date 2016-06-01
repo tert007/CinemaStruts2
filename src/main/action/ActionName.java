@@ -1,0 +1,39 @@
+package main.action;
+
+/**
+ * Created by Alexander on 01.06.2016.
+ */
+public enum ActionName {
+    //User
+    ADD_NEW_USER,
+    LOGIN_USER,
+    LOGOUT_USER,
+    REGISTRATION_USER,
+    FIND_USER_BY_ID,
+    GET_USERS_COLLECTION,
+    UPDATE_USER,
+    REMOVE_USER,
+
+    //Seance
+    SHOW_ADD_NEW_SEANCE,
+    ADD_NEW_SEANCE,
+    UPDATE_SEANCE,
+    REMOVE_SEANCE,
+    SHOW_SEANCE_SITS,
+    FIND_SEANCES_BY_FILM,
+    GET_TODAY_SEANCES,
+    GET_SEANCES_BY_DATE,
+    FIND_SEANCE_BY_ID,
+
+    //Film
+    ADD_NEW_FILM,
+    UPDATE_FILM,
+    REMOVE_FILM,
+    FIND_FILM_BY_ID,
+
+    //Ticket
+    FIND_TICKET_BY_ID,
+    UPDATE_TICKET,
+    BUY_TICKET,
+    REMOVE_TICKET
+}
