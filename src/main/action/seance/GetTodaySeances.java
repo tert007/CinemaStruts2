@@ -26,7 +26,7 @@ public class GetTodaySeances extends ActionSupport {
         DaoFactory daoFactory = DaoFactory.getDaoFactory();
         try{
 
-            setSeances(daoFactory.getSeanceDao().getTodaySeances());
+            seances = daoFactory.getSeanceDao().getTodaySeances();
 
             return SUCCESS;
         } catch (DaoException ex){
