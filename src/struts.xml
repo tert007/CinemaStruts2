@@ -14,6 +14,11 @@
             <result name="error">/signin.jsp</result>
         </action>
 
+        <action name="user_generation" class="main.action.generator.UserGeneration">
+            <result name="success">/user_profile.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
         <action name="logout_user" class="main.action.user.LogoutUser">
             <result name="success">/index.jsp</result>
         </action>
@@ -55,6 +60,11 @@
             <result name="error">/error.jsp</result>
         </action>
 
+        <action name="seance_generation" class="main.action.generator.SeanceGeneration">
+            <result name="success">/find_seance_by_id.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
         <action name="get_seances_by_date" class="main.action.seance.GetSeancesByDate">
             <result name="success">/seances.jsp</result>
             <result name="error">/error.jsp</result>
@@ -87,12 +97,21 @@
             <result name="error">/error.jsp</result>
         </action>
 
+        <action name="hall_generation" class="main.action.generator.HallGeneration">
+            <result name="success">/show_seance_sits.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
 
     </package>
 
     <package name="films" namespace="/" extends="struts-default">
         <action name="get_films_collection" class="main.action.film.GetFilmsCollection">
             <result name="success">/films.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="film_generation" class="main.action.generator.FilmGeneration">
+            <result name="success">/find_film_by_id.jsp</result>
             <result name="error">/error.jsp</result>
         </action>
 
@@ -122,6 +141,11 @@
         <action name="remove_ticket" class="main.action.ticket.RemoveTicket">
             <result name="success">/user_profile.jsp</result>
             <result name="error">/add_new_user.jsp</result>
+        </action>
+
+        <action name="ticket_generation" class="main.action.generator.TicketGeneration">
+            <result name="success">/find_ticket_by_id.jsp</result>
+            <result name="error">/error.jsp</result>
         </action>
 
         <action name="update_ticket" class="main.action.ticket.UpdateTicket">

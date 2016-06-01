@@ -2,6 +2,7 @@ package main.generator;
 
 import com.itextpdf.text.DocumentException;
 import main.entity.film.Film;
+import main.entity.hall.Hall;
 import main.entity.seance.Seance;
 import main.entity.ticket.Ticket;
 import main.entity.user.User;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -173,31 +175,35 @@ public class CsvGenerator {
         }
     }
 
-    private static CellProcessor[] getProcessorsForLog() {
+    private static CellProcessor[] getProcessorsForHall() {
         final CellProcessor[] processors = new CellProcessor[] {
+                new NotNull(),
+                new NotNull(),
                 new NotNull()
         };
 
         return processors;
     }
 
-    public void generateLog(String[] logContext, OutputStream outputStream) throws DocumentException, IOException {
+    public void generateHall(Hall hall, OutputStream outputStream) throws DocumentException, IOException {
         ICsvListWriter listWriter = null;
         listWriter = new CsvListWriter(new OutputStreamWriter(outputStream), CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
-        final List<Object> logData = new ArrayList<Object>();
-        final CellProcessor[] processors = getProcessorsForLog();
+        final String[] header = {"Number","Capacity","CurDate"};
+        final List<Object> userData = new ArrayList<Object>() {{
+            add(hall.getId());
+            add(hall.getCapacity());
+            add(new Date());
+        }};
 
-        for(String logAction: logContext) {
-
-            logData.add(logAction);
-
-            listWriter.write(logData, processors);
-
-            logData.clear();
-        }
+        final CellProcessor[] processors = getProcessorsForUser();
+        listWriter.writeHeader(header);
+        listWriter.write(userData, processors);
 
         if (listWriter != null) {
             listWriter.close();
         }
     }
+
+
+
 }

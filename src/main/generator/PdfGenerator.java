@@ -8,17 +8,17 @@ import main.entity.film.Film;
 
 import java.io.IOException;
 import com.itextpdf.text.DocumentException;
+import main.entity.hall.Hall;
 import main.entity.seance.Seance;
 import main.entity.ticket.Ticket;
 import main.entity.user.User;
 
 import java.io.OutputStream;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Myzor on 24.04.2016.
- */
 public class PdfGenerator {
     private static final PdfGenerator instance = new PdfGenerator();
     private String backGroundImage;
@@ -178,7 +178,7 @@ public class PdfGenerator {
         doc.close();
     }
 
-    public void generateSeance(Seance seance, OutputStream outputStream) throws DocumentException{
+    public void generateFilm(Seance seance, OutputStream outputStream) throws DocumentException{
         Document doc = new Document(PageSize.A4,50,50,50,50);
         PdfWriter pdfWriter = PdfWriter.getInstance(doc, outputStream);
         doc.open();
@@ -227,41 +227,41 @@ public class PdfGenerator {
         doc.close();
     }
 
-    public void generateLog(String[] logContext, OutputStream outputStream) throws DocumentException, IOException {
-        Document doc = new Document(PageSize.A4, 50, 50, 50, 50);
+    public void generateHall(Hall hall, OutputStream outputStream) throws DocumentException{
+        Document doc = new Document(PageSize.A4,50,50,50,50);
         PdfWriter pdfWriter = PdfWriter.getInstance(doc, outputStream);
         doc.open();
-        Paragraph title = new Paragraph("Log", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.ITALIC, new CMYKColor(0, 255, 255, 17)));
+
+        Paragraph title = new Paragraph("Hall\nDate " + new Date(), FontFactory.getFont(FontFactory.HELVETICA,
+                18, Font.ITALIC, new CMYKColor(0, 255, 255,17)));
         title.setAlignment(Element.ALIGN_CENTER);
+
         doc.add(title);
-        Font font = new Font(baseFont, 11, Font.BOLD);
+        Font font = new Font(baseFont,11,Font.BOLD);
         doc.add(Chunk.NEWLINE);
-        for(String logAction: logContext){
-            doc.add(new Phrase(logAction, new Font(baseFont, 10)));
-            doc.add(Chunk.NEWLINE);
-        }
+
+        doc.add(new Chunk("Hall #", font));
+        doc.add(new Phrase(String.valueOf(hall.getId()), new Font(baseFont, 10, Font.UNDERLINE)));
         doc.add(Chunk.NEWLINE);
         doc.add(Chunk.NEWLINE);
-        setBackgroundImg(pdfWriter);
+
+        doc.add(new Chunk("Hall capacity: ", font));
+        doc.add(new Phrase(String.valueOf(hall.getCapacity()), new Font(baseFont, 10, Font.UNDERLINE)));
+        doc.add(Chunk.NEWLINE);
+        doc.add(Chunk.NEWLINE);
+
+        doc.add(new Chunk("Seance Time: ", font));
+        Date date = new Date();
+        doc.add(new Phrase(date.toString(), new Font(baseFont, 10, Font.UNDERLINE)));
+        doc.add(Chunk.NEWLINE);
+        doc.add(Chunk.NEWLINE);
+
+        doc.add(Chunk.NEWLINE);
+        doc.add(Chunk.NEWLINE);
+
         doc.close();
     }
 
-    private void setBackgroundImg(PdfWriter pdfWriter) throws DocumentException {
-        PdfContentByte canvas = pdfWriter.getDirectContentUnder();
-        Image image = null;
-        try { image = Image.getInstance(backGroundImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (image != null) {
-            image.scaleAbsolute(PageSize.A4.getWidth(), PageSize.A4.getHeight());
-            image.setAbsolutePosition(0, 0);
-            canvas.saveState();
-            PdfGState pdfGState = new PdfGState();
-            pdfGState.setFillOpacity(0.5f);
-            canvas.setGState(pdfGState);
-            canvas.addImage(image);
-            canvas.restoreState();
-        }
-    }
+
+
 }

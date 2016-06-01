@@ -6,6 +6,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import main.entity.film.Film;
+import main.entity.hall.Hall;
 import main.entity.seance.Seance;
 import main.entity.ticket.Ticket;
 import main.entity.user.User;
@@ -20,11 +21,10 @@ import org.apache.poi.ss.usermodel.Row;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Myzor on 24.04.2016.
- */
+
 public class ExcelGenerator {
     private static final ExcelGenerator instance = new ExcelGenerator();
 
@@ -255,27 +255,31 @@ public class ExcelGenerator {
         outputStream.close();
     }
 
-    public void generateLog(String[] logContext, OutputStream outputStream) throws DocumentException, IOException {
+    public void generateHall(Hall hall, OutputStream outputStream) throws DocumentException, IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("Log");
+        HSSFSheet sheet = workbook.createSheet("Hall " + hall.getId());
         int i = 0;
-        for (String logStr: logContext){
 
-            HSSFRow destPlaceRow = sheet.createRow(i);
-            destPlaceRow.createCell(0).setCellValue(logStr);
-            i++;
-        }
+        HSSFRow headRow = sheet.createRow(i);
+        headRow.createCell(0).setCellValue("Hall #" + hall.getId());
+        headRow.createCell(1).setCellValue("");
+        headRow.createCell(2).setCellValue("");
+        i++;
 
-        for (int j = 0; j < i; j++) {
-            CellStyle cellStyle = workbook.createCellStyle();
-            Font font = workbook.createFont();
-            font.setItalic(true);
-            font.setFontName(HSSFFont.FONT_ARIAL);
-            cellStyle.setFont(font);
-            cellStyle.setVerticalAlignment(CellStyle.ALIGN_CENTER);
-            Row row1 = sheet.getRow(j);
-            row1.getCell(0).setCellStyle(cellStyle);
-        }
+        HSSFRow destPlaceRow = sheet.createRow(i);
+        destPlaceRow.createCell(0).setCellValue("");
+        destPlaceRow.createCell(1).setCellValue("Hall capacity:");
+        destPlaceRow.createCell(2).setCellValue(hall.getCapacity());
+        i++;
+
+        HSSFRow depTimeRow = sheet.createRow(i);
+        depTimeRow.createCell(0).setCellValue("");
+        depTimeRow.createCell(1).setCellValue("Current date");
+        depTimeRow.createCell(2).setCellValue(new Date());
+        i++;
+
+
+        cellsStyle(workbook, sheet, i);
 
         for (int j=0; j < 3 ; j++) {
             sheet.autoSizeColumn(j);
@@ -284,6 +288,7 @@ public class ExcelGenerator {
         workbook.write(outputStream);
         outputStream.close();
     }
+
 
 
     private void cellsStyle(HSSFWorkbook workbook, HSSFSheet sheet, int i) {
